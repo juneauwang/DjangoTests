@@ -1,0 +1,44 @@
+# bastion config for prod and nonprod AWS accounts
+ 
+# general bastion config
+Host bastion.toolbox.acdc.signintra.com bastion.toolbox-sb.acdc.signintra.com bastion.management.acdc.signintra.com 10.52.140.36 10.52.140.164 10.52.141.36 10.52.141.164
+ 
+# !!!!! REPLACE WITH YOUR USERNAME !!!! #
+User your.name
+# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! #
+StrictHostKeyChecking no
+UserKnownHostsFile /dev/null
+LogLevel ERROR
+ServerAliveInterval 60
+# !!!!!!!!! CHECK YOUR SSH KEY !!!!!!!! #
+IdentityFile ~/.ssh/id_rsa
+# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! #
+ 
+# config for all prod VPCs
+#Host !10.52.141.32 !10.52.141.33 !10.52.141.34 !10.52.141.35 !10.52.141.36 !10.52.141.37 !10.52.141.38 !10.52.141.39 !10.52.141.4* !10.52.141.5* !10.52.141.60 !10.52.141.61 !10.52.141.62 !10.52.141.63 !10.52.141.16* !10.52.141.17* !10.52.141.18* !10.52.141.190 !10.52.141.191 10.52.131.* 10.52.137.* 10.52.139.* 10.52.141.*
+Host !bastion.management.acdc.signintra.com !git.signintra.com !10.52.141.36 !10.52.141.164 10.52.131.* 10.52.137.* 10.52.139.* 10.52.141.*
+ProxyCommand ssh bastion.management.acdc.signintra.com -W %h:%p
+StrictHostKeyChecking no
+UserKnownHostsFile /dev/null
+User ubuntu
+LogLevel ERROR
+ServerAliveInterval 60
+ 
+# config for all nonprod VPCs
+#Host !10.52.140.32 !10.52.140.33 !10.52.140.34 !10.52.140.35 !10.52.140.36 !10.52.140.37 !10.52.140.38 !10.52.140.39 !10.52.140.4* !10.52.140.5* !10.52.140.60 !10.52.140.61 !10.52.140.62 !10.52.140.63 !10.52.140.16* !10.52.140.17* !10.52.140.18* !10.52.140.190 !10.52.140.191 10.52.131.* 10.52.137.* 10.52.139.* 10.52.140.*
+Host !bastion.toolbox.acdc.signintra.com !git.signintra.com !10.52.140.36 !10.52.140.164 10.52.130.* 10.52.136.* 10.52.138.* 10.52.140.* 10.52.178.* 10.52.179.* 10.52.198.* 10.52.199.* 10.52.196.* 10.52.197.*
+ProxyCommand ssh bastion.toolbox.acdc.signintra.com -W %h:%p
+StrictHostKeyChecking no
+UserKnownHostsFile /dev/null
+LogLevel ERROR
+User ubuntu
+ServerAliveInterval 60
+ 
+# config for sandbox
+Host !bastion.toolbox-sb.acdc.signintra.com !10.52.142.36 !10.52.142.164 10.52.142.* 10.52.187.*
+ProxyCommand ssh bastion.toolbox-sb.acdc.signintra.com -W %h:%p
+StrictHostKeyChecking no
+UserKnownHostsFile /dev/null
+LogLevel ERROR
+User ubuntu
+ServerAliveInterval 60
